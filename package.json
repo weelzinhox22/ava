@@ -1,0 +1,17 @@
+{
+  "name": "ava-automacao",
+  "version": "1.0.0",
+  "description": "Automação de questionário AVA Kroton com Playwright + Groq SDK",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "cli-table3": "^0.6.5",
+    "dotenv": "^16.4.0",
+    "express": "^5.2.1",
+    "groq-sdk": "^0.8.0",
+    "playwright": "^1.49.0"
+  }
+}

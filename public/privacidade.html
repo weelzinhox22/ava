@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacidade e LGPD — Studio Oryon</title>
+  <meta name="description" content="Política de Privacidade e conformidade com a LGPD — Studio Oryon">
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    .privacy-container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .privacy-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+    }
+    .privacy-header i {
+      font-size: 48px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .privacy-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      font-family: 'Outfit', sans-serif;
+    }
+    .privacy-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+    .privacy-content {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    .privacy-section {
+      margin-bottom: 32px;
+      transition: transform 0.3s ease;
+    }
+    .privacy-section:hover {
+      transform: translateX(5px);
+    }
+    .privacy-section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .privacy-section-header i {
+      font-size: 24px;
+      color: var(--accent-light);
+      background: rgba(108, 92, 231, 0.1);
+      padding: 8px;
+      border-radius: 8px;
+    }
+    .privacy-section h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-family: 'Outfit', sans-serif;
+    }
+    .privacy-content p {
+      margin-bottom: 16px;
+    }
+    .privacy-content strong {
+      color: var(--text-primary);
+    }
+    .back-nav {
+      margin-bottom: 30px;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .btn-back:hover {
+      color: white;
+    }
+    .btn-back i {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="back-nav">
+      <a href="/" class="btn-back"><i class="ph ph-arrow-left"></i> Voltar ao Sistema</a>
+    </div>
+
+    <main class="privacy-container">
+      <header class="privacy-header">
+        <i class="ph-fill ph-shield-check"></i>
+        <h1 class="privacy-title">Política de Privacidade</h1>
+        <p class="privacy-subtitle">Conformidade e Proteção de Dados (LGPD)</p>
+      </header>
+
+      <div class="privacy-content">
+        <section class="privacy-section">
+          <div class="privacy-section-header">
+            <i class="ph-fill ph-hard-drives"></i>
+            <h3>Processamento Local e Seguro</h3>
+          </div>
+          <p>A Studio Oryon foi construída utilizando os princípios do Privacy by Design. Todas as credenciais de acesso, cookies de sessão acadêmica e dados de navegação são processados <strong>exclusivamente no dispositivo onde a automação é executada</strong>.</p>
+          <p>Nenhuma informação pessoal sensível ou acadêmica é transmitida, armazenada ou intermediada por servidores externos ou bancos de dados da Studio Oryon sem o consentimento explícito e direto do usuário através da interface.</p>
+        </section>
+
+        <section class="privacy-section">
+          <div class="privacy-section-header">
+            <i class="ph-fill ph-graduation-cap"></i>
+            <h3>Natureza da Ferramenta de Auxílio Educacional</h3>
+          </div>
+          <p>Este sistema é estritamente classificado como uma <strong>ferramenta de automação e auxílio à rotina educacional</strong>. Seu principal objetivo é otimizar o tempo através da resolução das tarefas mecânicas em painéis acadêmicos, através da navegação web automatizada.</p>
+          <p>Reiteramos que o software realiza ações sob estrita demanda do usuário iniciador do processo. O uso ético, responsável e compatível com as regras institucionais aplicáveis é de inteira responsabilidade do portador das credenciais de acesso.</p>
+        </section>
+
+        <section class="privacy-section">
+          <div class="privacy-section-header">
+            <i class="ph-fill ph-lock-key"></i>
+            <h3>Armazenamento Criptografado de Credenciais</h3>
+          </div>
+          <p>Quando o recurso "Lembrar de mim" é ativado no formulário de autenticação, o fluxo salvará os dados de inserção empregando a codificação em Base64 no arquivo local de persistência (<code>user.json</code>).</p>
+          <p>Recomendamos aos usuários em ambientes de rede compartilhada ou acessos não confiáveis que encerrem a sessão ativamente usando o botão <em>Sair</em>, o que expurgará de imediato qualquer arquivo local gerado relacionado a esta sessão.</p>
+        </section>
+
+        <section class="privacy-section">
+          <div class="privacy-section-header">
+            <i class="ph-fill ph-scales"></i>
+            <h3>Conformidade Estrita com a LGPD</h3>
+          </div>
+          <p>Em obediência à <strong>Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018)</strong> do Brasil, nossa plataforma garante todos os direitos do titular, notadamente:</p>
+          <ul>
+            <li style="margin-bottom: 8px; margin-left: 20px;">Direito ao acesso mitigado, à retificação e à exclusão total aos dados locais gerados no momento de encerramento;</li>
+            <li style="margin-bottom: 8px; margin-left: 20px;">Completa ausência de APIs de monetização ou telemetria;</li>
+            <li style="margin-bottom: 8px; margin-left: 20px;">Plena transparência sobre o destino das informações. Nenhuma requisição é feita sem os parâmetros essenciais para o funcionamento da automação em si.</li>
+          </ul>
+        </section>
+
+        <section class="privacy-section" style="margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px;">
+          <div class="privacy-section-header">
+            <i class="ph-fill ph-envelope-simple"></i>
+            <h3>Contato e Solicitações Adicionais</h3>
+          </div>
+          <p>Quaisquer dúvidas pertinentes à engenharia, manipulação de dados ou eventuais requisições legais podem ser encaminhadas diretamente pelo canal de suporte encontrado no website oficial da produtora do software:</p>
+          <a href="https://studiooryon.pro" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; color:var(--accent-light); font-weight: 500; font-size: 16px; margin-top: 10px; text-decoration: none;"><i class="ph ph-link"></i> Visite studiooryon.pro</a>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: transparent; border: none; padding-top: 0;">
+      <div class="footer-content" style="justify-content: center;">
+        <div class="footer-copy" style="border: none;">
+          &copy; 2026 Studio Oryon. Powered By <a href="https://studiooryon.pro" target="_blank" rel="noopener">Studio Oryon</a>.
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

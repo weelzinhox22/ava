@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Oryon — Automação Educacional</title>
+  <meta name="description" content="Plataforma inteligente de automação educacional — Studio Oryon">
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-logo"><i class="ph-fill ph-lightning"></i></div>
+        <div>
+          <div class="header-title">Studio Oryon</div>
+          <div class="header-sub">Automação Educacional Inteligente</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="status-badge" id="statusBadge">
+          <span class="status-dot"></span>
+          <span id="statusText">Desconectado</span>
+        </div>
+        <button class="btn btn-danger btn-sm" id="btnLogout" style="display:none" onclick="logout()"><i class="ph ph-sign-out"></i> Sair</button>
+      </div>
+    </header>
+
+    <!-- Steps -->
+    <div class="steps" id="stepsBar">
+      <div class="step active" data-step="1"><span class="step-num">1</span> Login</div>
+      <div class="step" data-step="2"><span class="step-num">2</span> Disciplinas</div>
+      <div class="step" data-step="3"><span class="step-num">3</span> Conteúdo</div>
+      <div class="step" data-step="4"><span class="step-num">4</span> Automação</div>
+    </div>
+
+    <!-- STEP 1: Login -->
+    <section class="section visible" id="sectionLogin">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-lock-key"></i> Autenticação</div>
+        <div class="login-grid">
+          <div class="input-group">
+            <label>Login (RA / Email)</label>
+            <input type="text" id="inputLogin" placeholder="Digite seu RA ou email" autocomplete="username">
+          </div>
+          <div class="input-group">
+            <label>Senha</label>
+            <input type="password" id="inputSenha" placeholder="••••••••" autocomplete="current-password">
+          </div>
+          <button class="btn btn-primary" id="btnLogin" onclick="doLogin()"><i class="ph-bold ph-rocket-launch"></i> Entrar no Sistema</button>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="checkSave" checked>
+          <label for="checkSave">Lembrar minhas credenciais localmente</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: Disciplinas -->
+    <section class="section" id="sectionDisciplinas">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-books"></i> Selecione a Disciplina</div>
+        <div id="disciplinasList" class="item-grid"></div>
+        <div class="loading" id="loadingDisciplinas" style="display:none">
+          <div class="spinner"></div> Carregando disciplinas do AVA...
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Unidades / Seções / Atividades -->
+    <section class="section" id="sectionNav">
+      <div class="card" id="cardUnidades">
+        <div class="card-title"><i class="ph-fill ph-book-open"></i> Estrutura da Unidade</div>
+        <div id="unidadesList" class="item-grid"></div>
+        <div class="loading" id="loadingUnidades" style="display:none">
+          <div class="spinner"></div> Sincronizando unidades...
+        </div>
+      </div>
+      <div class="card" id="cardSeccoes" style="display:none">
+        <div class="card-title"><i class="ph-fill ph-file-text"></i> Selecione a Seção</div>
+        <div id="seccoesList" class="item-grid"></div>
+      </div>
+      <div class="card" id="cardAtividades" style="display:none">
+        <div class="card-title"><i class="ph-fill ph-target"></i> Escopo da Atividade</div>
+        <div id="atividadesList" class="item-grid"></div>
+      </div>
+      <div style="text-align: right; margin-top: 16px;">
+        <button class="btn btn-success" id="btnResolver" onclick="startResolver()" style="display:none">
+          <i class="ph-bold ph-robot"></i> Iniciar Motor de Automação
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 4: Resolução / Resultado -->
+    <section class="section" id="sectionResult">
+      <div class="score-card" id="scoreCard">
+        <div class="score-icon"><i class="ph-fill ph-trophy"></i></div>
+        <div class="score-value" id="scoreValue">—</div>
+        <div class="score-label" id="scoreLabel">Aproveitamento Analítico</div>
+        <div class="post-quiz-menu" id="postQuizMenu">
+          <button class="btn btn-primary" onclick="refazerQuestionario()"><i class="ph-bold ph-arrows-clockwise"></i> Refazer Questionário</button>
+          <button class="btn btn-ghost" onclick="voltarDisciplinas()"><i class="ph-bold ph-books"></i> Voltar às Disciplinas</button>
+          <button class="btn btn-danger" onclick="sairFechar()"><i class="ph-bold ph-sign-out"></i> Encerrar Sessão</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Console de Logs (sempre visível) -->
+    <div class="card console-card" style="margin-top: 24px;">
+      <div class="card-title" style="justify-content: space-between; margin-bottom: 12px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <i class="ph-fill ph-terminal-window"></i> Terminal de Eventos
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="clearLogs()"><i class="ph ph-trash"></i> Limpar</button>
+      </div>
+      <div class="console" id="logConsole">
+        <div class="log-line">
+          <span class="log-time">--:--:--</span>
+          <span class="log-msg">Aguardando bootstrap do sistema...</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo"><i class="ph-fill ph-lightning"></i> Studio Oryon</div>
+        <div class="footer-tagline">Automação Educacional Inteligente</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://studiooryon.pro" target="_blank" rel="noopener"><i class="ph-bold ph-globe"></i> Website Oficial</a>
+        <a href="https://instagram.com/studiooryon" target="_blank" rel="noopener"><i class="ph-bold ph-instagram-logo"></i> @studiooryon</a>
+        <a href="/privacidade.html"><i class="ph-bold ph-shield-check"></i> Privacidade & LGPD</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 Studio Oryon. Powered By <a href="https://studiooryon.pro" target="_blank" rel="noopener">Studio Oryon</a>. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Bar -->
+  <div class="cookie-bar" id="cookieBar">
+    <div class="cookie-text">
+      <i class="ph-fill ph-cookie"></i> Este sistema opera inteiramente com processamento local e não utiliza cookies de rastreamento. Ao continuar, você aceita nossa <a href="/privacidade.html">Política de Privacidade</a>.
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="acceptCookies()">Reconheço e Aceito</button>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

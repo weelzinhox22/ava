@@ -1,0 +1,192 @@
+[
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "1,00/3,00",
+    "aproveitamento": "33%",
+    "tempo_execucao": "450.9s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "Existem algumas escalas para classificar a contração, como avaliação funcional do assoalho pélvico (AFA), o esquema PERF",
+        "answer": "As afirmativas I, II, III, IV e V estão corretas."
+      },
+      {
+        "question": 2,
+        "text": "Para a avaliação dos MAP a mulher deve ser convidada a se despir da cintura para baixo, ofereça a ela um lençol para cob",
+        "answer": "As afirmativas I, II e III estão corretas."
+      },
+      {
+        "question": 3,
+        "text": "Durante a avaliação fisioterapêutica na saúde da mulher é essencial buscar o máximo de informações para conseguir elabor",
+        "answer": "identificar presença de patologias concomitantes c"
+      }
+    ],
+    "data": "2026-03-27T00:03:13.208Z"
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "2,00/3,00",
+    "aproveitamento": "67%",
+    "tempo_execucao": "372.0s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "Complete as lacunas da sentença a seguir:\n\n \n\nA avaliação da região adjacente aos MAP é de extrema importância. Sabemos ",
+        "answer": "rotadores externos do quadril/ condicionamento/ ci"
+      },
+      {
+        "question": 2,
+        "text": "Complete as lacunas da sentença a seguir:\n\n \n\nA avaliação da região adjacente aos MAP é de extrema importância. Sabemos ",
+        "answer": "rotadores externos do quadril/ condicionamento/ ci"
+      },
+      {
+        "question": 3,
+        "text": "Complete as lacunas da seguinte sentença:\n\nPara que a incontinência urinária seja quantificada testes objetivos são nece",
+        "answer": "absorvente/ pesado/ água/ pressão/ incontinência u"
+      }
+    ],
+    "data": "2026-03-27T00:18:16.899Z",
+    "erros_potenciais": [
+      {
+        "questao": "Complete as lacunas da sentença a seguir:\n\n \n\nA avaliação da região adjacente aos MAP é de extrema importância. Sabemos ",
+        "resposta_ia": "rotadores externos do quadril/ condicionamento/ ci"
+      },
+      {
+        "questao": "Complete as lacunas da sentença a seguir:\n\n \n\nA avaliação da região adjacente aos MAP é de extrema importância. Sabemos ",
+        "resposta_ia": "rotadores externos do quadril/ condicionamento/ ci"
+      },
+      {
+        "questao": "Complete as lacunas da seguinte sentença:\n\nPara que a incontinência urinária seja quantificada testes objetivos são nece",
+        "resposta_ia": "absorvente/ pesado/ água/ pressão/ incontinência u"
+      }
+    ]
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "1,00/3,00",
+    "aproveitamento": "33%",
+    "tempo_execucao": "355.2s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "O início do tratamento para mulheres com disfunções pélvicas e uroginecologias devem iniciar com foco na correta contraç",
+        "answer": "F - F - F.",
+        "source": "ollama"
+      },
+      {
+        "question": 2,
+        "text": "Os exercícios de fortalecimento para o MAP geralmente são ensinados e praticados com a paciente em decúbito dorsal, já q",
+        "answer": "pequenos moldes de formato cilíndrico, que são de ",
+        "source": "ollama"
+      },
+      {
+        "question": 3,
+        "text": "Complete as lacunas da sentença a seguir:\n\n \n\nPara o fortalecimento dos músculos do assoalho pélvico, não existe um cons",
+        "answer": "Contrações/ 10 a 20/ força/ resistência estática/ ",
+        "source": "ollama"
+      }
+    ],
+    "data": "2026-03-27T00:36:08.942Z",
+    "erros_potenciais": [
+      {
+        "questao": "O início do tratamento para mulheres com disfunções pélvicas e uroginecologias devem iniciar com foco na correta contraç",
+        "resposta_ia": "F - F - F."
+      },
+      {
+        "questao": "Os exercícios de fortalecimento para o MAP geralmente são ensinados e praticados com a paciente em decúbito dorsal, já q",
+        "resposta_ia": "pequenos moldes de formato cilíndrico, que são de "
+      },
+      {
+        "questao": "Complete as lacunas da sentença a seguir:\n\n \n\nPara o fortalecimento dos músculos do assoalho pélvico, não existe um cons",
+        "resposta_ia": "Contrações/ 10 a 20/ força/ resistência estática/ "
+      }
+    ]
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Desconhecido",
+    "tempo_empregado": "Desconhecido",
+    "notas": "Não identificada",
+    "aproveitamento": "Concluído",
+    "tempo_execucao": "70.7s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "Muitas mulheres tem dificuldades para realizar o treinamento dos músculos dos MAP. O jeito mais moderno e eficiente de s",
+        "answer": "1 - 2 - 2 - 2.",
+        "source": "groq"
+      },
+      {
+        "question": 2,
+        "text": "A consciência da contração muscular é essencial no sucesso da reabilitação através do treinamento dos músculos do assoal",
+        "answer": "Espelho, Biofeedback de onda cerebral e Biofeedbac",
+        "source": "groq"
+      }
+    ],
+    "data": "2026-03-27T00:47:03.541Z"
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Desconhecido",
+    "tempo_empregado": "Desconhecido",
+    "notas": "Não identificada",
+    "aproveitamento": "Concluído",
+    "tempo_execucao": "112.5s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "Durante a avaliação fisioterapêutica dos prolapsos de órgãos pélvicos realiza-se a fase de palpação vaginal, onde observ",
+        "answer": "IV - I - II - III - 0.",
+        "source": "groq"
+      },
+      {
+        "question": 2,
+        "text": "Outra avaliação muito importante em mulheres com bexiga hiperativa e bexiga neurogênica é o diário miccional de 3 dias. ",
+        "answer": "Apenas as afirmativas I e II estão corretas.",
+        "source": "groq"
+      }
+    ],
+    "data": "2026-03-27T00:53:10.103Z"
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia Musculoesquelética na Saúde do Adulto",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "3,00/3,00",
+    "aproveitamento": "100%",
+    "tempo_execucao": "117.6s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "Os tendões fazem parte dos componentes anatômicos dos músculos e são responsáveis por fazer a fixação do músculo nos oss",
+        "answer": "F, V, V, V.",
+        "source": "groq"
+      },
+      {
+        "question": 2,
+        "text": "Complete as lacunas:\nOs músculos são formados por feixes de fibras musculares que são organizados e revestidos por tecid",
+        "answer": "endomísio, perimísio, epimísio.",
+        "source": "groq"
+      },
+      {
+        "question": 3,
+        "text": "Complete a afirmação:\nPatologia conhecida como síndrome dolorosa crônica, sua etiopatogenia é multifatorial devido à com",
+        "answer": "fibromialgia.",
+        "source": "groq"
+      }
+    ],
+    "data": "2026-03-27T01:04:00.378Z"
+  }
+]
