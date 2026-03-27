@@ -5,6 +5,7 @@
 // ── Variables ───────────────────────────────────────────────
 let sseSource = null;
 let currentDisciplina = null;
+let currentUnidade = null;
 
 // ── DOM Elements ────────────────────────────────────────────
 const els = {
@@ -280,7 +281,7 @@ async function loadUnidades() {
     data.unidades.forEach((uni, i) => {
       els.unidadesList.appendChild(createItemCard(uni, i, async () => {
         addLog(`<i class="ph ph-spinner-gap ph-spin"></i> Navegando para ${uni}...`);
-        await fetchPost('/api/click', { name: uni });
+        currentUnidade = uni;
         loadSeccoes(uni);
       }));
     });
@@ -295,7 +296,7 @@ async function loadSeccoes(unidade) {
   els.cardSeccoes.style.display = 'block';
   els.cardAtividades.style.display = 'none';
   els.btnResolver.style.display = 'none';
-  addLog(`<i class="ph-bold ph-arrows-clockwise ph-spin"></i> Carregando seções para ${secao}...`);
+  addLog(`<i class="ph-bold ph-arrows-clockwise ph-spin"></i> Carregando seções para: ${unidade}...`);
   
   try {
     const data = await fetchPost('/api/seccoes', { unidade });
@@ -307,9 +308,10 @@ async function loadSeccoes(unidade) {
     }
     
     data.seccoes.forEach((sec, i) => {
-      els.seccoesList.appendChild(createItemCard(sec, i, async () => {
+      const title = typeof sec === 'object' ? sec.titulo : sec;
+      els.seccoesList.appendChild(createItemCard(title, i, async () => {
         await fetchPost('/api/click', { name: sec });
-        loadAtividades(sec);
+        loadAtividades(title);
       }));
     });
   } catch (err) {}
@@ -392,10 +394,10 @@ function showResult(data) {
         <div><strong>Total de questões respondidas:</strong> ${data.total}</div>
       </div>
       
-      <div class="post-quiz-menu" id="postQuizMenu">
-        <button class="btn btn-primary" onclick="refazerQuestionario()">🔄 Refazer este Questionário</button>
-        <button class="btn btn-ghost" onclick="voltarDisciplinas()">📚 Voltar para Disciplinas</button>
-        <button class="btn btn-danger" onclick="sairFechar()">🚪 Sair e Fechar Navegador</button>
+      <div class="post-quiz-menu" id="postQuizMenu" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn btn-primary" onclick="refazerQuestionario()"><i class="ph-bold ph-arrows-clockwise"></i> Refazer este Questionário</button>
+        <button class="btn btn-success" onclick="voltarSeccoes()"><i class="ph-bold ph-arrow-u-up-left"></i> Voltar para Unidade Atual</button>
+        <button class="btn btn-ghost" onclick="voltarDisciplinas()"><i class="ph-bold ph-house"></i> Voltar para Disciplinas</button>
       </div>
     `;
   }
@@ -408,8 +410,19 @@ async function refazerQuestionario() {
   els.btnResolver.style.display = 'inline-flex';
 }
 
+async function voltarSeccoes() {
+  addLog('<i class="ph-bold ph-arrow-u-up-left"></i> Retornando para a lista de seções da unidade...');
+  showStep(3);
+  if (currentUnidade) {
+    loadSeccoes(currentUnidade);
+  } else {
+    addLog('[AVISO] Unidade não encontrada em memória. Volte para disciplinas.');
+  }
+}
+
 async function voltarDisciplinas() {
-  addLog('<i class="ph-bold ph-books"></i> Retornando para a seleção de disciplinas...');
+  addLog('<i class="ph-bold ph-house"></i> Retornando para a seleção de disciplinas...');
+  await fetchPost('/api/click', { name: 'HOME', url: 'https://www.avaeduc.com.br/' }).catch(() => {});
   showStep(2);
   loadDisciplinas();
 }

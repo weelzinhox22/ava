@@ -188,5 +188,212 @@
       }
     ],
     "data": "2026-03-27T01:04:00.378Z"
+  },
+  {
+    "status": "success",
+    "disciplina": "Práticas Fisioterapêuticas na Atenção Secundária e Terciária",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "1,00/3,00",
+    "aproveitamento": "33%",
+    "tempo_execucao": "121.8s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "As questões que envolvem a saúde como direito da pessoa idosa são abordadas pela Política Nacional do Idoso (PNI), Lei n",
+        "answer": "a atenção Básica/ Estratégia de Saúde da Família, ",
+        "source": "oryon"
+      },
+      {
+        "question": 2,
+        "text": "Os termos Geriatria e Gerontologia são comumente utilizados no cotidiano de profissionais da área da saúde que atuam no ",
+        "answer": "III e IV, apenas.",
+        "source": "oryon"
+      },
+      {
+        "question": 3,
+        "text": "Os profissionais da saúde podem assistir ao idoso nos três níveis de atenção à saúde. Tomando como referência os eixos e",
+        "answer": "V – F – V – V.",
+        "source": "oryon"
+      }
+    ],
+    "data": "2026-03-27T21:29:28.528Z",
+    "erros_potenciais": [
+      {
+        "questao": "As questões que envolvem a saúde como direito da pessoa idosa são abordadas pela Política Nacional do Idoso (PNI), Lei n",
+        "resposta_ia": "a atenção Básica/ Estratégia de Saúde da Família, "
+      },
+      {
+        "questao": "Os termos Geriatria e Gerontologia são comumente utilizados no cotidiano de profissionais da área da saúde que atuam no ",
+        "resposta_ia": "III e IV, apenas."
+      },
+      {
+        "questao": "Os profissionais da saúde podem assistir ao idoso nos três níveis de atenção à saúde. Tomando como referência os eixos e",
+        "resposta_ia": "V – F – V – V."
+      }
+    ]
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "2,00/3,00",
+    "aproveitamento": "67%",
+    "tempo_execucao": "121.1s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "A avaliação fisioterapêutica deve iniciar pelo menos após 12 horas após o parto, para que a mulher tenha tempo de se rec",
+        "answer": "V - V - F.",
+        "source": "oryon"
+      },
+      {
+        "question": 2,
+        "text": "A avaliação abdominal difere entre os tipos de parto, para mulheres que realizaram a cesariana avalie a cicatriz se exib",
+        "answer": "Apenas as afirmativas I e II estão corretas.",
+        "source": "oryon"
+      },
+      {
+        "question": 3,
+        "text": "Na avaliação da mulher pós parto é importante avaliar se as mamas estão produzindo o colostro, que é um líquido de cor a",
+        "answer": "protuso, plano ou invertido.",
+        "source": "oryon"
+      }
+    ],
+    "data": "2026-03-27T21:41:42.619Z",
+    "erros_potenciais": [
+      {
+        "questao": "A avaliação fisioterapêutica deve iniciar pelo menos após 12 horas após o parto, para que a mulher tenha tempo de se rec",
+        "resposta_ia": "V - V - F."
+      },
+      {
+        "questao": "A avaliação abdominal difere entre os tipos de parto, para mulheres que realizaram a cesariana avalie a cicatriz se exib",
+        "resposta_ia": "Apenas as afirmativas I e II estão corretas."
+      },
+      {
+        "questao": "Na avaliação da mulher pós parto é importante avaliar se as mamas estão produzindo o colostro, que é um líquido de cor a",
+        "resposta_ia": "protuso, plano ou invertido."
+      }
+    ]
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "2,00/3,00",
+    "aproveitamento": "67%",
+    "tempo_execucao": "119.2s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "No primeiro estágio do trabalho de parto é caracterizado por contrações uterinas que objetivam dilatar o colo uterino, a",
+        "answer": "Apenas as afirmativas I e II estão corretas.",
+        "source": "oryon"
+      },
+      {
+        "question": 2,
+        "text": "Logo após o nascimento do bebê, a antes parturiente passa a ser chamada de puérpera. O puerpério corresponde ao período ",
+        "answer": "pós-parto imediato que corresponde as primeiras 24",
+        "source": "oryon"
+      },
+      {
+        "question": 3,
+        "text": "O parto é composto por três estágios sendo a primeira a fase de dilatação do útero, a segunda a fase de expulsão do feto",
+        "answer": "contração de Braxton Hicks.",
+        "source": "oryon"
+      }
+    ],
+    "data": "2026-03-27T21:44:14.829Z",
+    "erros_potenciais": [
+      {
+        "questao": "No primeiro estágio do trabalho de parto é caracterizado por contrações uterinas que objetivam dilatar o colo uterino, a",
+        "resposta_ia": "Apenas as afirmativas I e II estão corretas."
+      },
+      {
+        "questao": "Logo após o nascimento do bebê, a antes parturiente passa a ser chamada de puérpera. O puerpério corresponde ao período ",
+        "resposta_ia": "pós-parto imediato que corresponde as primeiras 24"
+      },
+      {
+        "questao": "O parto é composto por três estágios sendo a primeira a fase de dilatação do útero, a segunda a fase de expulsão do feto",
+        "resposta_ia": "contração de Braxton Hicks."
+      }
+    ]
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Finalizada",
+    "tempo_empregado": "Tempo empregado",
+    "notas": "4,00/5,00",
+    "aproveitamento": "80%",
+    "tempo_execucao": "199.6s",
+    "questoes": [
+      {
+        "question": 1,
+        "text": "A incontinência urinária afeta muitas mulheres de diferentes idades e é muito comum aparecerem durante o período da gest",
+        "answer": "para o seu desenvolvimento o peso decorrente do cr",
+        "source": "oryon"
+      },
+      {
+        "question": 2,
+        "text": "Ainda na maternidade, o fisioterapeuta deve orientar sobre a correta contração dos MAP para prevenir e/ou tratar disfunç",
+        "answer": "As asserções I e II são proposições verdadeiras, m",
+        "source": "oryon"
+      },
+      {
+        "question": 3,
+        "text": "O parto é dividido em 3 estágios sendo o primeiro a fase de dilatação uterina, o segundo estágio a expulsão do recém-nas",
+        "answer": "2 - 2 - 1 - 1.",
+        "source": "oryon"
+      },
+      {
+        "question": 4,
+        "text": "Dores lombares são comuns no pós-parto devido à fraqueza dos músculos abdominais que geralmente encontram-se distendidos",
+        "answer": "trocar as fraldas do bebê em uma superfície alta p",
+        "source": "oryon"
+      },
+      {
+        "question": 5,
+        "text": "Muitas vezes a amamentação não é uma tarefa fácil, a nova mãe tem que aprender várias técnicas para ter sucesso nesta jo",
+        "answer": "A asserção I é uma proposição verdadeira, e a II é",
+        "source": "oryon"
+      }
+    ],
+    "data": "2026-03-27T21:48:01.559Z",
+    "erros_potenciais": [
+      {
+        "questao": "A incontinência urinária afeta muitas mulheres de diferentes idades e é muito comum aparecerem durante o período da gest",
+        "resposta_ia": "para o seu desenvolvimento o peso decorrente do cr"
+      },
+      {
+        "questao": "Ainda na maternidade, o fisioterapeuta deve orientar sobre a correta contração dos MAP para prevenir e/ou tratar disfunç",
+        "resposta_ia": "As asserções I e II são proposições verdadeiras, m"
+      },
+      {
+        "questao": "O parto é dividido em 3 estágios sendo o primeiro a fase de dilatação uterina, o segundo estágio a expulsão do recém-nas",
+        "resposta_ia": "2 - 2 - 1 - 1."
+      },
+      {
+        "questao": "Dores lombares são comuns no pós-parto devido à fraqueza dos músculos abdominais que geralmente encontram-se distendidos",
+        "resposta_ia": "trocar as fraldas do bebê em uma superfície alta p"
+      },
+      {
+        "questao": "Muitas vezes a amamentação não é uma tarefa fácil, a nova mãe tem que aprender várias técnicas para ter sucesso nesta jo",
+        "resposta_ia": "A asserção I é uma proposição verdadeira, e a II é"
+      }
+    ]
+  },
+  {
+    "status": "success",
+    "disciplina": "Fisioterapia na Saúde da Mulher",
+    "estado": "Desconhecido",
+    "tempo_empregado": "Desconhecido",
+    "notas": "Não identificada",
+    "aproveitamento": "Concluído",
+    "tempo_execucao": "60.0s",
+    "questoes": [],
+    "data": "2026-03-27T21:57:56.176Z"
   }
 ]

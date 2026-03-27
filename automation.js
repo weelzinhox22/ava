@@ -457,38 +457,29 @@ async function selectDisciplina(sessionId, targetInfo, emit = () => {}) {
 
 async function getUnidades(sessionId, emit = () => {}) {
   const { page } = getSession(sessionId);
-  emit('log', '📖 Extraindo unidades de ensino...');
+  emit('log', '[ORYON] Extraindo unidades do menu lateral...');
   await delay(3000);
   await safeWait(page);
-
-  // Expandir accordions de Unidades se estiverem colapsados
-  try {
-    const accordions = await page.locator('text=/Unidade.*Ensino|U\\d+/i').all();
-    for (const acc of accordions) {
-      // Se tiver parent com class 'collapsed' ou 'accordion', clique para forçar expansão
-      const isVisible = await acc.isVisible();
-      if (isVisible) {
-        // Usa click no-error
-        await acc.click({ force: true, timeout: 1000 }).catch(() => {});
-      }
-    }
-    await delay(2000);
-  } catch {}
 
   const items = await page.evaluate(() => {
     const results = [];
     const seen = new Set();
-    document.querySelectorAll('a, button, h3, h4, h5, span, div, li').forEach((el) => {
-      const t = el.textContent.trim().replace(/\s+/g, ' ');
-      if (t.match(/Unidade.*Ensino.*\d+|U\d+\s*[-–]/i) && t.length < 150 && !seen.has(t)) {
-        seen.add(t);
-        results.push(t);
+    const groups = document.querySelectorAll('#ctsidebar-container .timeline-item.group');
+    
+    groups.forEach(group => {
+      const link = group.querySelector('a');
+      if (link) {
+        const text = link.textContent.trim().replace(/\s+/g, ' ');
+        if (text && !seen.has(text)) {
+          seen.add(text);
+          results.push(text);
+        }
       }
     });
     return results;
   });
 
-  emit('log', `[SUCESSO] ${items.length} unidade(s) encontrada(s).`);
+  emit('log', `[ORYON] Unidades carregadas no menu lateral. (${items.length} encontradas)`);
   return items;
 }
 
@@ -498,33 +489,51 @@ async function getUnidades(sessionId, emit = () => {}) {
 
 async function getSeccoes(sessionId, unidadeName, emit = () => {}) {
   const { page } = getSession(sessionId);
-  emit('log', `📄 Expandindo "${unidadeName}"...`);
+  emit('log', `[ORYON] Unidade selecionada: ${unidadeName}. Expandindo...`);
 
   try {
-    await page.locator(`text=${unidadeName}`).first().click();
-  } catch {
-    const kw = unidadeName.split(/\s+/).filter((w) => w.length > 2)
-      .map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('.*');
-    await page.locator(`text=/${kw}/i`).first().click();
-  }
-  await safeWait(page);
-  await delay(2000);
+    // 1. Localizar o item do menu lateral pela div e pelo texto do link interno
+    const unitGroup = page.locator('#ctsidebar-container .timeline-item.group').filter({ hasText: unidadeName }).first();
+    const unitLink = unitGroup.locator('a').first();
 
-  const items = await page.evaluate(() => {
-    const results = [];
+    const timelineMenu = page.locator('#ctsidebar-container .timeline-item').filter({ hasText: unidadeName }).locator('~ .timeline-menu').first();
+
+    // 2. Usar atributo aria-expanded para verificar se já está expandido
+    const ariaExpanded = await unitLink.getAttribute('aria-expanded').catch(() => null);
+    const isVisible = await timelineMenu.isVisible().catch(() => false);
+
+    if (ariaExpanded !== 'true' && !isVisible) {
+      // 3. Clicar para expandir
+      await unitLink.click({ force: true, timeout: 5000 });
+      
+      // 4. Aguardar script de animação do AVA
+      await delay(1000); 
+
+      // 5. Garantir que o menu expandiu verificando a visibilidade
+      await timelineMenu.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+    }
+
+    // 6. Captura de seções APENAS da unidade expandida
+    const sectionLinks = await timelineMenu.locator('ul li a').all();
+    const items = [];
     const seen = new Set();
-    document.querySelectorAll('a, button, h3, h4, h5, span, div, li').forEach((el) => {
-      const t = el.textContent.trim().replace(/\s+/g, ' ');
-      if (t.match(/U\d+\s*[-–]\s*Seção|Seção\s*\d+/i) && t.length < 150 && !seen.has(t)) {
-        seen.add(t);
-        results.push(t);
-      }
-    });
-    return results;
-  });
 
-  emit('log', `[SUCESSO] ${items.length} seção(ões) encontrada(s).`);
-  return items;
+    for (const link of sectionLinks) {
+      const text = (await link.innerText()).trim().replace(/\s+/g, ' ');
+      if (text && !seen.has(text)) {
+        seen.add(text);
+        let url = await link.getAttribute('href').catch(() => '');
+        items.push({ titulo: text, url: url });
+      }
+    }
+
+    emit('log', `[ORYON] Sucesso: ${items.length} seções carregadas para escolha.`);
+    return items;
+
+  } catch (e) {
+    emit('log', `[ERRO] Falha crítica na abstração do menu lateral: ${e.message}`);
+    return [];
+  }
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -535,23 +544,7 @@ async function getAtividades(sessionId, secaoName, emit = () => {}) {
   const { page } = getSession(sessionId);
   emit('log', `🎯 Expandindo "${secaoName}" e buscando atividades...`);
 
-  try {
-    await page.locator(`text=${secaoName}`).first().click();
-  } catch {
-    const kw = secaoName.split(/\s+/).filter((w) => w.length > 1)
-      .map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('.*');
-    await page.locator(`text=/${kw}/i`).first().click();
-  }
-  await safeWait(page);
-  await delay(2000);
-
-  // Fazer scroll suave para o fim da página para garantir que Avaliação da Unidade carregue
-  try {
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await delay(1000);
-  } catch {}
-
-  const items = await page.evaluate(() => {
+  const extractActivities = async () => page.evaluate(() => {
     const results = [];
     const seen = new Set();
     
@@ -560,8 +553,8 @@ async function getAtividades(sessionId, secaoName, emit = () => {}) {
       const link = container.querySelector('h3 a');
       if (link) {
         const text = link.textContent.trim().replace(/\s+/g, ' ');
-        // Filtro alvo
-        if (text.match(/Atividade Diagnóstica|Atividade de Aprendizagem|Avaliação da Unidade|Questionário|Quiz/i)) {
+        // Filtro alvo ampliado para contemplar mais variações
+        if (text.match(/Atividade|Avaliação|Questionário|Quiz|Situação|Sessão|Prova/i)) {
           if (!seen.has(text)) {
             seen.add(text);
             const url = link.href || '';
@@ -582,19 +575,53 @@ async function getAtividades(sessionId, secaoName, emit = () => {}) {
     if (results.length === 0) {
       document.querySelectorAll('a, button, span, li').forEach((el) => {
         const text = el.textContent.trim().replace(/\s+/g, ' ');
-        if (text.match(/Atividade Diagnóstica|Atividade de Aprendizagem|Avaliação da Unidade|Questionário|Quiz/i) &&
+        if (text.match(/Atividade|Avaliação|Questionário|Quiz|Situação|Sessão|Prova/i) &&
             text.length > 5 && text.length < 150 && !seen.has(text)) {
           seen.add(text);
-          // Determinar status fallback: procurar avô com ícone ou texto (Feito)
           const parentText = el.parentElement ? el.parentElement.textContent : '';
           const status = parentText.match(/Feito|Concluíd/i) ? 'CONCLUÍDA' : 'PENDENTE';
           results.push({ titulo: text, url: el.href || '', status });
         }
       });
     }
-
     return results;
   });
+
+  let items = await extractActivities();
+
+  if (items.length > 0) {
+    emit('log', `[INFO] As atividades (${items.length}) já estavam visíveis na tela.`);
+  } else {
+    emit('log', `🎯 Clicando para expandir "${secaoName}" e buscar atividades...`);
+    try {
+      await page.locator(`text="${secaoName}"`).first().click({ timeout: 5000, force: true });
+    } catch {
+      try {
+        const kw = secaoName.split(/\s+/).filter((w) => w.length > 1)
+          .map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('.*');
+        await page.locator(`text=/${kw}/i`).first().click({ timeout: 5000, force: true });
+      } catch (e) {
+        emit('log', `[AVISO] Clique na seção via texto falhou, checando DOM...`);
+      }
+    }
+    await safeWait(page);
+    await delay(3000);
+    
+    // Fazer scroll suave para o fim da página
+    try {
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await delay(1000);
+    } catch {}
+
+    items = await extractActivities();
+  }
+
+  if (items.length === 0) {
+    const dbg = await page.evaluate(() => [...new Set(Array.from(document.querySelectorAll('h3, h4, span.title, a.nav-link'))
+      .map(e => e.textContent.trim().replace(/\\s+/g, ' ').substring(0, 40))
+      .filter(t => t.length > 5))].slice(0, 15));
+    emit('log', `[DEBUG] Atividades não encontradas. Textos DOM: ${dbg.join(' | ')}`);
+  }
 
   emit('log', `[SUCESSO] ${items.length} atividade(s) encontrada(s).`);
   return items;
@@ -767,47 +794,68 @@ async function resolverAtividade(sessionId, disciplina, groqKey, emit = () => {}
     // Limpar cookies/banners ANTES de qualquer interação
     await limparBanners(page);
 
-    // 3a. PRIMÁRIO: Groq API (agora com label ORYON)
-    emit('log', `[ORYON] [ETAPA 1] Analisando questão...`);
-    const iaResponse = await askGroq(groqKey, disciplina, text, formattedAlts);
-    emit('log', `[ORYON] Resposta interna: "${iaResponse.substring(0, 120)}"`);
+    // 3a. PRIMÁRIO: Groq API com Retry e Anti-Bias A
+    emit('log', `[ORYON] Estabilizando motor de raciocínio 120B...`);
 
-    if (iaResponse) {
-      // Limpar resposta da IA
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      let questionQuery = text;
+      
+      if (attempt > 1) {
+        emit('log', `[AVISO] Match fraco na Letra A detectado. Reiniciando raciocínio... (Tentativa ${attempt}/3)`);
+        questionQuery = text + `\n\nATENÇÃO: Não responda com números (ex: "1") ou letras isoladas (ex: "A"). Retorne APENAS o texto completo da alternativa EXATA correspondente, sem explicações adicionais.`;
+      } else {
+        emit('log', `[ORYON] Analisando questão...`);
+      }
+
+      const iaResponse = await askGroq(groqKey, disciplina, questionQuery, formattedAlts);
+      
+      if (!iaResponse) continue;
+
+      // Sanitização estrita do miolo técnico
       const cleanAi = iaResponse
         .toLowerCase()
-        .replace(/^(a alternativa correta é|a resposta correta é|a resposta é|resposta:?)\s*/i, '')
-        .replace(/^[\d]+[.\)]\s*/, '')
-        .replace(/^[a-eA-E][.\)]\s*/, '')
+        .replace(/^(a alternativa correta é|a resposta correta é|a resposta é|resposta:?|opção:?|selecionar:?|alternativa:?)\s*/i, '')
+        .replace(/^[\d]+[.\)-]\s*/, '')
+        .replace(/^[a-eA-E][.\)-]\s*/, '')
         .replace(/["'`]/g, '')
         .replace(/\.\s*$/, '')
         .trim();
 
-      console.log(`[ORYON] Sugeriu: "${iaResponse.substring(0, 80)}"`);
-      console.log(`[ORYON] Clean:   "${cleanAi}"`);
+      // Rejeição se a IA responder só com uma letra ou número (menos de 5 letras geralmente é inútil pra match de fisioterapia)
+      if (cleanAi.length < 5) {
+        continue; // Força nova iteração
+      }
 
-      // Match estrito: includes bidirecional
-      targetOpt = optionsMap.find(o => cleanAi.includes(o.textoLimpo) || o.textoLimpo.includes(cleanAi));
+      // Match direto
+      let tempOpt = optionsMap.find(o => cleanAi.includes(o.textoLimpo) || o.textoLimpo.includes(cleanAi));
+      let bestScore = 0;
+      let bestOpt = null;
 
-      // Fuzzy Match com score mínimo ESTRITO (>= 80%)
-      if (!targetOpt && cleanAi.length > 3) {
-        let bestScore = 0;
-        let bestOpt = null;
+      if (tempOpt) {
+        bestScore = 1.0; // 100%
+      } else {
+        // Validação Estrita de Conteúdo (Anti-Debug-A)
         for (const opt of optionsMap) {
           const score = calcSimilarity(cleanAi, opt.textoLimpo);
-          console.log(`  SIM[${opt.idx}]: "${opt.textoOriginal.substring(0,50)}" => ${(score*100).toFixed(1)}%`);
           if (score > bestScore) {
             bestScore = score;
             bestOpt = opt;
           }
         }
-        if (bestScore >= 0.4) {
-          targetOpt = bestOpt;
-        } else {
-          console.log(`  [ANTI-BIAS] Melhor score ${(bestScore*100).toFixed(1)}% < 40%.`);
+        
+        // 60% de similaridade mínima
+        if (bestScore >= 0.6) {
+          tempOpt = bestOpt;
         }
       }
-      if (targetOpt) answerSource = 'oryon';
+
+      if (tempOpt) {
+        targetOpt = tempOpt;
+        answerSource = 'oryon';
+        const porcentagem = (bestScore * 100).toFixed(1);
+        emit('log', `[ORYON] Texto Groq: "${cleanAi.substring(0, 40)}" | Match AVA: "${targetOpt.textoOriginal.substring(0, 40)}" | Precisão: ${porcentagem}%`);
+        break; // Match Legítimo! Sai do for loop
+      }
     }
 
     // 3b. FALLBACK: Validar extensamente se IA falhou
@@ -990,7 +1038,16 @@ async function resolverAtividade(sessionId, disciplina, groqKey, emit = () => {}
 
   emit('log', `[SUCESSO] Aproveitamento final: ${finalScore} | Tempo total: ${elapsed}s`);
   
-  // 5. Analise de Nota Baixa e Botão Refazer
+  // 5. Limpeza de Interface Pós-Envio
+  try {
+    await page.evaluate(() => {
+      document.querySelectorAll('.modal, .modal-backdrop, [role="dialog"], #modal-container').forEach(el => el.remove());
+      document.body.classList.remove('modal-open');
+    });
+    emit('log', '[ORYON] Modais e overlays limpos da interface.');
+  } catch {}
+
+  // 6. Analise de Nota Baixa e Botão Refazer
   const pctMatch = finalScore.match(/(\d+[,.]?\d*)/);
   if (pctMatch && finalScore.includes('%')) {
     const num = parseFloat(pctMatch[1].replace(',', '.'));
@@ -1008,9 +1065,10 @@ async function resolverAtividade(sessionId, disciplina, groqKey, emit = () => {}
     }
   }
 
+  emit('log', '[ORYON] Questionário finalizado com sucesso. O que deseja fazer agora?');
   emit('done', { score: finalScore, time: elapsed, total: answersLog.length, status, tempoEmpregado, notas, avaliar });
 
-  // 6. Salvar Histórico em historico.json
+  // 7. Salvar Histórico em historico.json
   const resultado = {
     status: 'success',
     disciplina: disciplina,
